@@ -1,37 +1,57 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import DayTemp from './dayTemp';
 
 export default class App extends React.Component {
-  getDays() {
-    const days = ["Mon", "Tues", "Wed", "Thur", "Fri", "Sat", "Sun"];
-    return days.map((day) => {
-      return  <DayTemp day={days[index]} temp</Text>;
-    });
-  }
     render() {
-    return (
-      <View style={styles.container}>
+        //Update Day
+        const days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+        const date = new Date();
+        const dayNumber = date.getDay();
+        const day = days[dayNumber];
 
-        <Text style ={style.city}>San Francisco</Text>
-              Open up App.js to start working on your app!</Text>
+        //Update Month
+        var months = new Array();
+        months[0] = "January";
+        months[1] = "February";
+        months[2] = "March";
+        months[3] = "April";
+        months[4] = "May";
+        months[5] = "June";
+        months[6] = "July";
+        months[7] = "August";
+        months[8] = "September";
+        months[9] = "October";
+        months[10] = "November";
+        months[11] = "December";
+        const monthNumber = date.getMonth();
+        const month = months[monthNumber];
 
-      </View>
-    );
-  }
+        return (
+            <View style= {styles.container}>
+                <Text style= {styles.state}>San Francisco</Text>
+                <Text style= {styles.date}>{day}, {month} {dayNumber + 1}</Text>
+                <DayTemp days = {days} />
+            </View>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
-  daysContainer: {
-    width: "100%"
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-around'
-  },
-  container:{
-    flex:1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-around'
-  }
-});
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '100%'
+    },
+    state: {
+        fontSize: 40,
+        fontWeight: '300',
+    },
+    date:{
+        fontSize: 20,
+        fontWeight: '200',
+    }
 
+});
