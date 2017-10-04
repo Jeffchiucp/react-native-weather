@@ -7,8 +7,9 @@ export default class DayTemp extends React.Component {
     }
     render() {
         return (
-            <View>
-                <Text>{this.props.days}</Text>
+            <View style={styles.container}>
+                <Text style= {styles.day}>{this.props.valueDay}</Text>
+                <Text style= {styles.weather}>{this.props.valueWeather}</Text>
             </View>
         );
     }
@@ -16,17 +17,19 @@ export default class DayTemp extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-      display: 'flex',
-      flexDirection: 'row',
-      alignItems: 'center'
+        display: 'flex',
+        paddingRight: 10,
+        alignItems: 'center'
     },
-    state: {
-        fontSize: 40,
-        fontWeight: '300',
-    },
-    date:{
+    day: {
         fontSize: 20,
         fontWeight: '200',
+        paddingBottom: 4
+    },
+    weather: {
+        fontSize: 18,
+        fontWeight: '400'
+
     }
 
 });
