@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import DayTemp from './dayTemp';
+import weatherInfo from './weatherInfo';
 
 export default class App extends React.Component {
     constructor(props){
