@@ -1,4 +1,4 @@
-## Title:  React Native Weather App
+# React Native Weather App
 
 ## Overview
 React Weather App using the Dark Sky API. This app displays weekly weather updates including short descriptions per day. The app can use your current address or a custom address of your choosing.
