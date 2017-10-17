@@ -1,6 +1,21 @@
+##Title:  React Native Weather App
+##Overview
+React Weather App using the Dark Sky API. This app displays weekly weather updates including short descriptions per day. The app can use your current address or a custom address of your choosing.
+
+## ToDo:
+
+* Get Dark Sky API
+* DayTemp
+Read below to set up the project. 
+
 This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
 
 Below you'll find information about performing common tasks. The most recent version of this guide is available [here](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md).
+
+
+This project was bootstrapped with [Create React Native App](https://github.com/react-community/create-react-native-app).
+
+Below you'll find information about performing common tasks. The most recent version of this guide is available 
 
 ## Table of Contents
 
@@ -35,7 +50,11 @@ Updating the `react-native-scripts` dependency of your app should be as simple a
 
 Upgrading to a new version of React Native requires updating the `react-native`, `react`, and `expo` package versions, and setting the correct `sdkVersion` in `app.json`. See the [versioning guide](https://github.com/react-community/create-react-native-app/blob/master/VERSIONS.md) for up-to-date information about package version compatibility.
 
-## Available Scripts
+## Getting Started
+
+### `npm install`
+
+## Installation
 
 If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
 
