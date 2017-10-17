@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         paddingTop: 50,
         width: '100%',
-        // backgroundColor: 'purple'
+        backgroundColor: 'purple'
     },
     day: {
         fontSize: 20,

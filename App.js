@@ -1,100 +1,81 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import DayTemp from './dayTemp';
-import weatherInfo from './weatherInfo';
+import WeatherRow from './weatherRow';
+import LocationData from './location';
+import SubmitCity from './search';
 
+//source course from Mitchell Hudson tutorial on WTHR
 export default class App extends React.Component {
     constructor(props){
         super(props);
 
-        // this.days = [];
-
         this.state = {
-            weatherDescription: null,
-            humidity: null,
-            wind: null
+            currentCity: null
         }
     }
 
     componentWillMount(){
-        //set the state of the weather description
-        // this.findWeather();
+        this.getCurrentLocation();
     }
 
-    findWeather() {
-        const apikey = '71043c8b60e60a460020f46b78c6850c';
-        const path = `https://api.darksky.net/forecast/71043c8b60e60a460020f46b78c6850c/37.8267,-122.4233`;
-        fetch(path)
-        .then(res => res.json())
-        .then((json) => {
-            // console.log(json);
-            // if (json.cod === 200){
-                const description = json.weather[0].main;
-                const weatherHumidity = json.main.humidity;
-                const windValue = json.wind.speed;
-                this.setState({weatherDescription: description, humidity: weatherHumidity, wind: windValue});
-        })
-        .catch(err => console.log(err));
-    }
-    //display the weather description if it is not null
-    showWeather(){
-        if (this.state.weatherDescription){
-            return (
-                [
-                <Text key = "description" style= {styles.weatherDescription}>{this.state.weatherDescription}</Text>,
-                <Text key = "humidity" style= {styles.weatherDescription}>Humidity: {this.state.humidity}%</Text>,
-                <Text key = "wind" style= {styles.weatherDescription}>Wind: {this.state.wind}</Text>
-                ]
-            )
+    //get current location and set that to the location components unless someone submits a new city
+    // use the Free Geo IP API to get the current address
 
-        }else{
-            return <Text style= {styles.weatherDescription}>{''}</Text>
+    getCurrentLocation(){
+        var url = 'https://freegeoip.net/json/';
+        fetch(url)
+          .then((response) => response.json())
+          .then((responseJson) => {
+            // console.log(responseJson);
+            this.setState({currentCity: responseJson.city});
+          })
+          .catch((error) => {
+              console.error(error);
+          });
+    }
+
+    setCity(city){
+        if (city){
+            console.log("set city is: " + city)
+            this.setState({currentCity: city});
         }
     }
 
+    //current city will not be null. if not null, pass in current city. then pass in user submitted city
+    showState(){
+        console.log("THE NEW CITY IS: " + this.state.currentCity);
+        if (this.state.currentCity != null){
+            console.log("THE NEW NEW CITY IS: " + this.state.currentCity);
+            return (
+                <View style= {styles.locationContainer}>
+                    <LocationData currentCity={this.state.currentCity}/>
+                </View>
+            )
+        }
+    }
 
+    showSubmitForm(){
+        if (this.state.currentCity != null){
+            return (
+                <SubmitCity onSubmit={(term) => {
+                    console.log("the new city is: ", term);
+                    this.setCity(term);
+                }} />
+            )
+        }
+    }
 
     render() {
-        //Update Day
-        const days = ["Sun","Mon","Tues","Wed","Thurs","Fri","Sat"];
-        const date = new Date();
-        const dayNumber = date.getDay();
-        const day = days[dayNumber];
 
-        //Update Month
-        var months = new Array();
-        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ]
-        const monthNumber = date.getMonth();
-        const month = months[monthNumber];
-
-        // utc -> new Date(utc * 1000)
-
-        //Update Month
-        const weatherArray = ["70˚", "70˚", "64˚", "72˚", "72˚", "69˚", "63˚"];
-        const currentWeather = weatherArray[dayNumber];
-
-        //get all of the days/temperatures components in an array
-        const listDaysTemp = () => {
-            return days.map((day, index) => {
-                return <DayTemp key = {index} valueDay = {days[index]} valueWeather = {weatherArray[index]} />
-            })
-        }
-
+        // pass city into location component as prop
         return (
             <View style= {styles.container}>
-                <Text style= {styles.state}>San Francisco</Text>
-                <Text style= {styles.date}>{day}, {month} {dayNumber + 1}</Text>
-                <Text style= {styles.currentWeather}>{currentWeather}</Text>
-
-                <View style= {styles.weatherContainer}>
-                    {this.showWeather()}
+                <View style= {styles.cityContainer}>
+                    {this.showSubmitForm()}
                 </View>
 
-                {/* REACT COMMENT */}
-                <View style= {styles.dayContainer}>
-                    {listDaysTemp()}
-                </View>
-
+                {this.showState()}
             </View>
         );
     }
@@ -105,22 +86,34 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'flex-start',
         height: '100%',
-        backgroundColor: 'gray'
+    },
 
+    cityContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+        height: '20%',
+    },
+
+    locationContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        height: '80%',
     },
     state: {
         fontSize: 40,
         fontWeight: '300',
         paddingBottom: 5,
-        // flex: 1
     },
     date:{
         fontSize: 25,
         fontWeight: '200',
         paddingBottom: 10,
-        // flex: 1
     },
     dayTemp: {
         width: 50,
@@ -132,8 +125,6 @@ const styles = StyleSheet.create({
     currentWeather: {
        fontSize: 90,
        paddingBottom: 5,
-    //    flex: 1,
-    //    backgroundColor: 'cyan'
     },
     weatherDescription: {
        fontSize: 18,
@@ -146,3 +137,8 @@ const styles = StyleSheet.create({
        alignItems: 'center',
    }
 });
+
+//
+// <View style= {styles.dayContainer}>
+//     {listDaysTemp()}
+// </View>

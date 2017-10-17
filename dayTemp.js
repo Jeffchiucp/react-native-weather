@@ -1,20 +1,14 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-export default class DayTemp extends React.Component {
-    constructor(props){
-        super(props);
-    }
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text style= {styles.day}>{this.props.valueDay}</Text>
-                <Text style= {styles.weather}>{this.props.valueWeather}</Text>
-            </View>
-        );
-    }
+export default DayTemp = (props) => {
+    return (
+        <View style={styles.container}>
+            <Text style= {styles.day}>{props.valueDay}</Text>
+            <Text style= {styles.weather}>{props.valueWeather}</Text>
+        </View>
+    );
 }
-
 const styles = StyleSheet.create({
     container: {
         display: 'flex',
@@ -31,5 +25,4 @@ const styles = StyleSheet.create({
         fontWeight: '400'
 
     }
-
 });
