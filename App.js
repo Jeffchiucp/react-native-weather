@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import DayTemp from './dayTemp';
-import WeatherRow from './weatherRow';
-import LocationData from './location';
-import SubmitCity from './search';
+import DayTemp from './components/dayTemp';
+import WeatherRow from './components/weatherRow';
+import LocationData from './components/location';
+import SubmitCity from './components/search';
 
 //source course from Mitchell Hudson tutorial on WTHR
 export default class App extends React.Component {
